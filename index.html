@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">S</div>
+      <div>
+        <h1>StudentHub</h1>
+        <p>Student Management System</p>
+      </div>
+    </div>
+    <span class="topbar-label">Admin Dashboard</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">OVERVIEW</p>
+        <h2>Manage your students</h2>
+        <p class="muted">Add, search, update, and manage student records in one place.</p>
+      </div>
+      <button class="primary-btn" id="addStudentTopBtn" type="button">＋ Add Student</button>
+    </section>
+
+    <section class="stats" aria-label="Student statistics">
+      <article class="stat-card">
+        <div class="stat-icon purple">♙</div>
+        <div><p>Total Students</p><strong id="totalStudents">0</strong></div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon blue">▤</div>
+        <div><p>Courses</p><strong id="totalCourses">0</strong></div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon orange">✓</div>
+        <div><p>Average Marks</p><strong id="averageMarks">—</strong></div>
+      </article>
+    </section>
+
+    <section class="panel" id="studentFormPanel">
+      <div class="panel-heading">
+        <div>
+          <h3 id="formTitle">Add New Student</h3>
+          <p class="muted">Enter the student details below.</p>
+        </div>
+        <button class="text-btn hidden" id="cancelEditBtn" type="button">Cancel edit</button>
+      </div>
+
+      <form id="studentForm">
+        <input type="hidden" id="editingId">
+        <div class="form-grid">
+          <label>
+            Student ID <span class="required">*</span>
+            <input id="studentId" name="studentId" type="text" placeholder="e.g. STU101" required maxlength="20">
+          </label>
+          <label>
+            Full Name <span class="required">*</span>
+            <input id="studentName" name="studentName" type="text" placeholder="Enter full name" required maxlength="80">
+          </label>
+          <label>
+            Email
+            <input id="studentEmail" name="studentEmail" type="email" placeholder="student@example.com" maxlength="120">
+          </label>
+          <label>
+            Phone
+            <input id="studentPhone" name="studentPhone" type="tel" placeholder="10-digit phone number" pattern="[0-9+() -]{7,18}" maxlength="18">
+          </label>
+          <label>
+            Course <span class="required">*</span>
+            <select id="studentCourse" name="studentCourse" required>
+              <option value="">Select a course</option>
+              <option>B.Tech CSE</option>
+              <option>B.Tech ECE</option>
+              <option>B.Tech EEE</option>
+              <option>B.Sc Computer Science</option>
+              <option>BCA</option>
+              <option>MCA</option>
+              <option>MBA</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Year <span class="required">*</span>
+            <select id="studentYear" name="studentYear" required>
+              <option value="">Select year</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+            </select>
+          </label>
+          <label>
+            Gender
+            <select id="studentGender" name="studentGender">
+              <option value="">Select gender</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Prefer not to say</option>
+            </select>
+          </label>
+          <label>
+            Marks (0–100)
+            <input id="studentMarks" name="studentMarks" type="number" min="0" max="100" step="0.01" placeholder="e.g. 85">
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="primary-btn" id="saveStudentBtn" type="submit">Save Student</button>
+          <button class="secondary-btn" id="resetFormBtn" type="reset">Clear Form</button>
+        </div>
+      </form>
+      <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading records-heading">
+        <div>
+          <h3>Student Records</h3>
+          <p class="muted">View and manage all saved students.</p>
+        </div>
+        <div class="record-tools">
+          <input id="searchInput" type="search" placeholder="Search by name, ID, course…" aria-label="Search students">
+          <select id="courseFilter" aria-label="Filter by course">
+            <option value="">All courses</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Student ID</th>
+              <th>Course / Year</th>
+              <th>Contact</th>
+              <th>Marks</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody"></tbody>
+        </table>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">♙</div>
+          <h4>No students found</h4>
+          <p>Add a student using the form above, or change your search.</p>
+        </div>
+      </div>
+      <div class="table-footer">
+        <span id="recordCount">Showing 0 students</span>
+        <button class="danger-outline" id="clearAllBtn" type="button">Clear All Records</button>
+      </div>
+    </section>
+
+    <footer>StudentHub · HTML, CSS & JavaScript mini-project · Data is stored in this browser.</footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
